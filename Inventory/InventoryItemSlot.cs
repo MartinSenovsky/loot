@@ -59,7 +59,7 @@ public class InventoryItemSlot : MonoBehaviour
 		_itemImage.enabled = true;
 
 		// report to inventory
-		_parentInventory._onItemAddedOrRemoved();
+		_parentInventory._onItemAddedOrRemoved(inventoryItem, true);
 	}
 
 
@@ -73,7 +73,7 @@ public class InventoryItemSlot : MonoBehaviour
 		_itemImage.enabled = false;
 
 		// report to inventory
-		_parentInventory._onItemAddedOrRemoved();
+		_parentInventory._onItemAddedOrRemoved(tempInventoryItem, false);
 
 		return tempInventoryItem;
 	}

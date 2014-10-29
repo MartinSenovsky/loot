@@ -48,6 +48,7 @@ public class UnitStatPanel : MonoBehaviour
 		UnitStatsStatLine line = _getUnusedStatLine();
 		line.gameObject.SetActive(true);
 		line._set(statName, value, showPercent, color);
+		line._reposition();
 	}
 
 
@@ -86,6 +87,8 @@ public class UnitStatPanel : MonoBehaviour
 		// reactivate grid layout to sort stat lines
 		GetComponent<GridLayoutGroup>().enabled = false;
 		GetComponent<GridLayoutGroup>().enabled = true;
+
+		Debug.Log("Stats updated");
 	}
 
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class UnitStats : MonoBehaviour
@@ -12,6 +13,9 @@ public class UnitStats : MonoBehaviour
 	public int Hp;
 	public int HpMax;
 
+	public int Mp;
+	public int MpMax;
+
 	public float Action;
 	public float ActionMax;
 
@@ -21,6 +25,8 @@ public class UnitStats : MonoBehaviour
 	public string _prefabName;
 	[HideInInspector]
 	public string _uid;
+	[HideInInspector]
+	public UnitHud _hud;
 
 
 	// Game visible stats in stats panel - base values
@@ -36,6 +42,7 @@ public class UnitStats : MonoBehaviour
 
 	// defensive
 	public int _armor = 0;
+	public int _hp = 0;
 	public int _hpRegen = 0;
 	public int _magicResistance = 0;
 
@@ -76,21 +83,55 @@ public class UnitStats : MonoBehaviour
 		}
 	}
 
+
+	public float _addValueFromItems(String statName, float value)
+	{
+		// items absolute values
+		foreach (InventoryItemSlot slot in _hud._inventory._slots)
+		{
+			if (slot._hasItem())
+			{
+				InventoryItemStat stat = slot._getItem()._getStat(statName);
+				if (stat && stat._isAbsoluteValue)
+				{
+					value += stat._statValue;
+				}
+			}
+		}
+
+		// items % bonuses
+		foreach (InventoryItemSlot slot in _hud._inventory._slots)
+		{
+			if (slot._hasItem())
+			{
+				InventoryItemStat stat = slot._getItem()._getStat(statName);
+				if (stat && stat._isAbsoluteValue == false)
+				{
+					value *= stat._statValue;
+				}
+			}
+		}
+
+		return value;
+	}
+
+
 	public int _totalAttackDamage()
 	{
-		int v = _attackDamage;
+		float v = _attackDamage;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._attackDamage, v);
+
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
 	public int _totalArmor()
 	{
 		int v = _armor;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._armor, v);
 		// todo buffs
 
 		return v;
@@ -100,7 +141,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _armorPenetration;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._armorPenetration, v);
 		// todo buffs
 
 		return v;
@@ -110,7 +151,7 @@ public class UnitStats : MonoBehaviour
 	{
 		int v = _attackSpeed;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._attackSpeed, v);
 		// todo buffs
 
 		return v;
@@ -120,7 +161,7 @@ public class UnitStats : MonoBehaviour
 	{
 		int v = _abilityDamage;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._abilityDamage, v);
 		// todo buffs
 
 		return v;
@@ -130,7 +171,7 @@ public class UnitStats : MonoBehaviour
 	{
 		int v = _hpRegen;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._hpRegen, v);
 		// todo buffs
 
 		return v;
@@ -140,7 +181,7 @@ public class UnitStats : MonoBehaviour
 	{
 		int v = _magicResistance;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._magicResistance, v);
 		// todo buffs
 
 		return v;
@@ -150,7 +191,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _magicPenetration;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._magicPenetration, v);
 		// todo buffs
 
 		return v;
@@ -160,7 +201,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _criticalDamage;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._criticalDamage, v);
 		// todo buffs
 
 		return v;
@@ -170,7 +211,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _criticalChance;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._criticalChance, v);
 		// todo buffs
 
 		return v;
@@ -180,7 +221,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _coolDownReduction;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._coolDownReduction, v);
 		// todo buffs
 
 		return v;
@@ -190,7 +231,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _spellVamp;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._spellVamp, v);
 		// todo buffs
 
 		return v;
@@ -200,7 +241,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _lifeSteal;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._lifeSteal, v);
 		// todo buffs
 
 		return v;
@@ -210,7 +251,7 @@ public class UnitStats : MonoBehaviour
 	{
 		int v = HpMax;
 
-		// todo items
+		_addValueFromItems(InventoryItemStat._hp, v);
 		// todo buffs
 
 		return v;

@@ -24,6 +24,13 @@ public class UnitStatsStatLine : MonoBehaviour
 	}
 
 
+	public void _reposition()
+	{
+		_textText.transform.localPosition = new Vector3(-40, 0, 0);
+		_valueText.transform.localPosition = new Vector3(40, 0, 0);
+	}
+
+
 	public void _set(string name, float value, bool showPercent, Color color)
 	{
 		_name = name;

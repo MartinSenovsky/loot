@@ -47,7 +47,7 @@ namespace Assets.M.Scripts.Utils
 			_completeTweensOf(transform);
 			_hideInstant(transform);
 			transform.localPosition = new Vector3(187, -250, 0);
-			HOTween.To(transform, timeSec, new TweenParms().Prop("localScale", new Vector3(1, 1, 1)).Prop("localPosition", new Vector3(187, -68, 0)));
+			HOTween.To(transform, timeSec, new TweenParms().Prop("localScale", new Vector3(1, 1, 1)).Prop("localPosition", new Vector3(187, 110, 0)));
 		}
 
 
@@ -55,7 +55,7 @@ namespace Assets.M.Scripts.Utils
 		{
 			_completeTweensOf(transform);
 			_showInstant(transform);
-			transform.localPosition = new Vector3(187, -68, 0);
+			transform.localPosition = new Vector3(187, 110, 0);
 			HOTween.To(transform, timeSec, new TweenParms().Prop("localScale", new Vector3(0.001f, 0.001f, 0.001f)).Prop("localPosition", new Vector3(187, -250, 0)));
 		}
 

@@ -12,6 +12,7 @@ public class InventoryItemStat : MonoBehaviour
 	public const string _lifeSteal = "_lifeSteal";
 
 	public const string _armor = "_armor";
+	public const string _hp = "_hp";
 	public const string _hpRegen = "_hpRegen";
 	public const string _magicResistance = "_magicResistance";
 

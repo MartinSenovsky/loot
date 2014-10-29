@@ -28,12 +28,22 @@ public class UnitHud : MonoBehaviour
 	public GameObject _inventoryPanelGameObject;
 
 	private Unit _unit;
-	private UnitStats _unitStats;
+	[HideInInspector] 
+	public UnitStats _unitStats;
+
+	[HideInInspector] 
+	public Inventory _inventory;
 
 	void Start()
 	{
 		_unit = GetComponent<Unit>();
+
 		_unitStats = GetComponent<UnitStats>();
+		_unitStats._hud = this;
+
+		_inventory = GetComponentInChildren<Inventory>();
+		_inventory._hud = this;
+
 
 		NameText.text = _unitStats.Name;
 		LevelText.text = _unitStats.Level.ToString();

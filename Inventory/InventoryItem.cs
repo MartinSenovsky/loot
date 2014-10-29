@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -26,6 +27,20 @@ public class InventoryItem : MonoBehaviour
 	{
 		stat.transform.parent = transform;
 		_stats.Add(stat);
+	}
+
+
+	public InventoryItemStat _getStat(String statName)
+	{
+		foreach (InventoryItemStat stat in _stats)
+		{
+			if (stat._statName == statName)
+			{
+				return stat;
+			}
+		}
+
+		return null;
 	}
 
 

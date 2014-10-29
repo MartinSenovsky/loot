@@ -11,12 +11,17 @@ public class Inventory : MonoBehaviour
 
 	// generic
 	public bool _isGlobalPlayersInventory;
-	private List<InventoryItemSlot> _slots;
 
-	// not global
-	public Unit _owner;
+	[HideInInspector]
+	public List<InventoryItemSlot> _slots;
+
+	// unit only
 	public int _minimalEqipmentItemLevel = 0;
 	public Text _equipmentLevelText;
+
+	[HideInInspector] 
+	public UnitHud _hud;
+
 
 	// global only
 
@@ -95,7 +100,7 @@ public class Inventory : MonoBehaviour
 	}
 
 
-	public void _onItemAddedOrRemoved()
+	public void _onItemAddedOrRemoved(InventoryItem inventoryItem, bool added)
 	{
 		if (_isGlobalPlayersInventory)
 		{
@@ -103,6 +108,11 @@ public class Inventory : MonoBehaviour
 		}
 		else
 		{
+			// update stats
+			_hud._unitStats._statPanel._updateStatLines(_hud._unitStats);
+
+
+			// check if all slots are full
 			foreach (InventoryItemSlot slot in _slots)
 			{
 				if (slot._hasItem() == false)
@@ -134,25 +144,12 @@ public class Inventory : MonoBehaviour
 			}
 			return;
 		}
-		
 
-		bool showEnableAnim = false;
-		bool showDisableAnim = false;
-
-		if (enabled && absorbItemsButtonGameObject.activeSelf == false)
-		{
-			showEnableAnim = true;
-		}
-		else if (enabled == false && absorbItemsButtonGameObject.activeSelf)
-		{
-			showDisableAnim = true;
-		}
-
-		if (showEnableAnim)
+		if (enabled)
 		{
 			Tweens._showUpWithBump(absorbItemsButtonGameObject.transform);
 		}
-		else if (showDisableAnim)
+		else 
 		{
 			Tweens._hideWithBump(absorbItemsButtonGameObject.transform);
 		}

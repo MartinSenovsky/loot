@@ -20,21 +20,22 @@ public class UnitStatsSaveLoad
 		_saveInt("Xp", uid, stats.Exp);
 
 
-		_saveInt("_attackDamage", uid, stats._attackDamage);
-		_saveFloat("_armorPenetration", uid, stats._armorPenetration);
-		_saveInt("_attackSpeed", uid, stats._attackSpeed);
-		_saveFloat("_criticalChance", uid, stats._criticalChance);
-		_saveFloat("_criticalDamage", uid, stats._criticalDamage);
-		_saveFloat("_lifeSteal", uid, stats._lifeSteal);
+		_saveInt(InventoryItemStat._attackDamage, uid, stats._attackDamage);
+		_saveFloat(InventoryItemStat._armorPenetration, uid, stats._armorPenetration);
+		_saveInt(InventoryItemStat._attackSpeed, uid, stats._attackSpeed);
+		_saveFloat(InventoryItemStat._criticalChance, uid, stats._criticalChance);
+		_saveFloat(InventoryItemStat._criticalDamage, uid, stats._criticalDamage);
+		_saveFloat(InventoryItemStat._lifeSteal, uid, stats._lifeSteal);
 		
-		_saveInt("_armor", uid, stats._armor);
-		_saveInt("_hpRegen", uid, stats._hpRegen);
-		_saveInt("_magicResistance", uid, stats._magicResistance);
+		_saveInt(InventoryItemStat._armor, uid, stats._armor);
+		_saveInt(InventoryItemStat._hp, uid, stats._hp);
+		_saveInt(InventoryItemStat._hpRegen, uid, stats._hpRegen);
+		_saveInt(InventoryItemStat._magicResistance, uid, stats._magicResistance);
 
-		_saveInt("_abilityDamage", uid, stats._abilityDamage);
-		_saveFloat("_coolDownReduction", uid, stats._coolDownReduction);
-		_saveFloat("_magicPenetration", uid, stats._magicPenetration);
-		_saveFloat("_spellVamp", uid, stats._spellVamp);
+		_saveInt(InventoryItemStat._abilityDamage, uid, stats._abilityDamage);
+		_saveFloat(InventoryItemStat._coolDownReduction, uid, stats._coolDownReduction);
+		_saveFloat(InventoryItemStat._magicPenetration, uid, stats._magicPenetration);
+		_saveFloat(InventoryItemStat._spellVamp, uid, stats._spellVamp);
 
 	}
 
@@ -52,21 +53,22 @@ public class UnitStatsSaveLoad
 		stats.Exp = _loadInt("Xp", uid);
 
 
-		stats._attackDamage = _loadInt("_attackDamage", uid);
-		stats._armorPenetration = _loadInt("_armorPenetration", uid);
-		stats._attackSpeed = _loadInt("_attackSpeed", uid);
-		stats._criticalChance = _loadFloat("_criticalChance", uid);
-		stats._criticalDamage = _loadFloat("_criticalDamage", uid);
-		stats._lifeSteal = _loadFloat("_lifeSteal", uid);
+		stats._attackDamage = _loadInt(InventoryItemStat._attackDamage, uid);
+		stats._armorPenetration = _loadInt(InventoryItemStat._armorPenetration, uid);
+		stats._attackSpeed = _loadInt(InventoryItemStat._attackSpeed, uid);
+		stats._criticalChance = _loadFloat(InventoryItemStat._criticalChance, uid);
+		stats._criticalDamage = _loadFloat(InventoryItemStat._criticalDamage, uid);
+		stats._lifeSteal = _loadFloat(InventoryItemStat._lifeSteal, uid);
 
-		stats._armor = _loadInt("_armor", uid);
-		stats._hpRegen = _loadInt("_hpRegen", uid);
-		stats._magicResistance = _loadInt("_magicResistance", uid);
+		stats._armor = _loadInt(InventoryItemStat._armor, uid);
+		stats._hpRegen = _loadInt(InventoryItemStat._hpRegen, uid);
+		stats._hp = _loadInt(InventoryItemStat._hp, uid);
+		stats._magicResistance = _loadInt(InventoryItemStat._magicResistance, uid);
 
-		stats._abilityDamage = _loadInt("_abilityDamage", uid);
-		stats._coolDownReduction = _loadFloat("_coolDownReduction", uid);
-		stats._magicPenetration = _loadInt("_magicPenetration", uid);
-		stats._spellVamp = _loadFloat("_spellVamp", uid);
+		stats._abilityDamage = _loadInt(InventoryItemStat._abilityDamage, uid);
+		stats._coolDownReduction = _loadFloat(InventoryItemStat._coolDownReduction, uid);
+		stats._magicPenetration = _loadInt(InventoryItemStat._magicPenetration, uid);
+		stats._spellVamp = _loadFloat(InventoryItemStat._spellVamp, uid);
 	}
 
 
