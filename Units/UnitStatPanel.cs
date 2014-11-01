@@ -87,8 +87,6 @@ public class UnitStatPanel : MonoBehaviour
 		// reactivate grid layout to sort stat lines
 		GetComponent<GridLayoutGroup>().enabled = false;
 		GetComponent<GridLayoutGroup>().enabled = true;
-
-		Debug.Log("Stats updated");
 	}
 
 

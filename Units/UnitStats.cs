@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
@@ -92,6 +93,7 @@ public class UnitStats : MonoBehaviour
 			if (slot._hasItem())
 			{
 				InventoryItemStat stat = slot._getItem()._getStat(statName);
+				
 				if (stat && stat._isAbsoluteValue)
 				{
 					value += stat._statValue;
@@ -116,144 +118,175 @@ public class UnitStats : MonoBehaviour
 	}
 
 
-	public int _totalAttackDamage()
+
+
+
+
+	public int _totalAttackDamage(bool items = true, bool buffs = true)
 	{
 		float v = _attackDamage;
-
-		_addValueFromItems(InventoryItemStat._attackDamage, v);
+		if(items)
+		v += _addValueFromItems(InventoryItemStat._attackDamage, v);
 
 		// todo buffs
 
 		return (int)v;
 	}
 
-	public int _totalArmor()
+	public int _totalArmor(bool items = true, bool buffs = true)
 	{
-		int v = _armor;
-
-		_addValueFromItems(InventoryItemStat._armor, v);
+		float v = _armor;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._armor, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
-	public float _totalArmorPenetration()
+	public float _totalArmorPenetration(bool items = true, bool buffs = true)
 	{
 		float v = _armorPenetration;
-
-		_addValueFromItems(InventoryItemStat._armorPenetration, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._armorPenetration, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public int _totalAttackSpeed()
+	public int _totalAttackSpeed(bool items = true, bool buffs = true)
 	{
-		int v = _attackSpeed;
-
-		_addValueFromItems(InventoryItemStat._attackSpeed, v);
+		float v = _attackSpeed;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._attackSpeed, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
-	public int _totalAbilityPower()
+	public int _totalAbilityPower(bool items = true, bool buffs = true)
 	{
-		int v = _abilityDamage;
-
-		_addValueFromItems(InventoryItemStat._abilityDamage, v);
+		float v = _abilityDamage;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._abilityDamage, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
-	public int _totalHpRegen()
+	public int _totalHpRegen(bool items = true, bool buffs = true)
 	{
-		int v = _hpRegen;
-
-		_addValueFromItems(InventoryItemStat._hpRegen, v);
+		float v = _hpRegen;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._hpRegen, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
-	public int _totalMagicResist()
+	public int _totalMagicResist(bool items = true, bool buffs = true)
 	{
-		int v = _magicResistance;
-
-		_addValueFromItems(InventoryItemStat._magicResistance, v);
+		float v = _magicResistance;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._magicResistance, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
 	}
 
-	public float _totalMagicPenetration()
+	public float _totalMagicPenetration(bool items = true, bool buffs = true)
 	{
 		float v = _magicPenetration;
-
-		_addValueFromItems(InventoryItemStat._magicPenetration, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._magicPenetration, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public float _totalCriticalDamage()
+	public float _totalCriticalDamage(bool items = true, bool buffs = true)
 	{
 		float v = _criticalDamage;
-
-		_addValueFromItems(InventoryItemStat._criticalDamage, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._criticalDamage, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public float _totalCriticalChance()
+	public float _totalCriticalChance(bool items = true, bool buffs = true)
 	{
 		float v = _criticalChance;
-
-		_addValueFromItems(InventoryItemStat._criticalChance, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._criticalChance, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public float _totalCooldownReduction()
+	public float _totalCooldownReduction(bool items = true, bool buffs = true)
 	{
 		float v = _coolDownReduction;
-
-		_addValueFromItems(InventoryItemStat._coolDownReduction, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._coolDownReduction, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public float _totalSpellVamp()
+	public float _totalSpellVamp(bool items = true, bool buffs = true)
 	{
 		float v = _spellVamp;
-
-		_addValueFromItems(InventoryItemStat._spellVamp, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._spellVamp, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public float _totalLifeSteal()
+	public float _totalLifeSteal(bool items = true, bool buffs = true)
 	{
 		float v = _lifeSteal;
-
-		_addValueFromItems(InventoryItemStat._lifeSteal, v);
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._lifeSteal, v);
 		// todo buffs
 
 		return v;
 	}
 
-	public int _totalHpMax()
+	public int _totalHpMax(bool items = true, bool buffs = true)
 	{
-		int v = HpMax;
-
-		_addValueFromItems(InventoryItemStat._hp, v);
+		float v = HpMax;
+		if (items)
+		v += _addValueFromItems(InventoryItemStat._hp, v);
 		// todo buffs
 
-		return v;
+		return (int)v;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void _absorbItems()
+	{
+		_abilityDamage = _totalAbilityPower(true, false);
+		_armor = _totalArmor(true, false);
+		_armorPenetration= _totalArmorPenetration(true, false);
+		_attackDamage = _totalAttackDamage(true, false);
+		_attackSpeed = _totalAttackSpeed(true, false);
+		_coolDownReduction = _totalCooldownReduction(true, false);
+		_criticalChance = _totalCriticalChance(true, false);
+		_criticalDamage = _totalCriticalDamage(true, false);
+		_hp = _totalHpMax(true, false);
+		_hpRegen = _totalHpRegen(true, false);
+		_lifeSteal = _totalLifeSteal(true, false);
+		_magicPenetration = _totalMagicPenetration(true, false);
+		_magicResistance = _totalMagicResist(true, false);
+		_spellVamp = _totalSpellVamp(true, false);
 	}
 }

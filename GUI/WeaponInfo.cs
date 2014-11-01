@@ -83,23 +83,19 @@ public class WeaponInfo : MonoBehaviour
 		if (pos.x < -halfWidth)
 		{
 			pos.x = -halfWidth;
-			Debug.Log("too left of screen");
 		}
-		else if (pos.x > halfWidth)
+		else if (pos.x > halfWidth + _instance._panelTransform.sizeDelta.x)
 		{
-			pos.x = halfWidth;
-			Debug.Log("too right of screen");
+			pos.x = halfWidth + _instance._panelTransform.sizeDelta.x;
 		}
 
 		if (pos.y < -halfHeight)
 		{
 			pos.y = -halfHeight;
-			Debug.Log("too down of screen");
 		}
 		else if (pos.y > halfHeight + _instance._panelTransform.sizeDelta.y - 5)
 		{
 			pos.y = halfHeight + _instance._panelTransform.sizeDelta.y - 5;
-			Debug.Log("too up of screen");
 		}
 
 		pos.x = (int)pos.x;

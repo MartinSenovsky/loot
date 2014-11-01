@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using Holoville.HOTween;
+using Holoville.HOTween.Plugins.Core;
 using UnityEngine;
+using UnityEngine.UI;
 using Tweener = Holoville.HOTween.Tweener;
 using TweenParms = Holoville.HOTween.TweenParms;
 
@@ -18,6 +19,26 @@ namespace Assets.M.Scripts.Utils
 				tweener.Complete();
 			}
 		}
+
+
+		static public void _alphaIn(Image i, float alpha, float timeSec = 0.5f)
+		{
+			_showInstant(i.transform);
+			HOTween.To(i, timeSec, new TweenParms().Prop("color", new PlugColor(new Color(i.color.r, i.color.g, i.color.b, alpha))));
+		}
+
+
+		static public void _alphaOut(Image i, float timeSec = 0.5f)
+		{
+			HOTween.To(i, timeSec, new TweenParms().Prop("color", new PlugColor(new Color(i.color.r, i.color.g, i.color.b, 0))).OnComplete(_onAlphaOutCompleted, i.transform));
+		}
+
+		private static void _onAlphaOutCompleted(TweenEvent p_callbackdata)
+		{
+			Transform t = p_callbackdata.parms[0] as Transform;
+			_hideInstant(t);
+		}
+
 
 		static public void _showUpWithBump(Transform transform, float timeSec = 0.5f)
 		{
@@ -80,7 +101,7 @@ namespace Assets.M.Scripts.Utils
 
 		static public void _hideInstant(Transform transform)
 		{
-			transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+			transform.localScale = new Vector3(0.0001f, 0.0001f, 0.0001f);
 		}
 
 

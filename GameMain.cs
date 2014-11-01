@@ -17,9 +17,11 @@ public class GameMain : MonoBehaviour
 	public UnitsPositionManager _enemyUnitsPositionManager;
 	public GuiManager _guiManager;
 	public EffectManager _effectManager;
+	public UnitsManager _unitsManager;
 
 	public List<Unit> _units;
 	public List<Unit> _enemies;
+	
 
 	void Start()
 	{
@@ -34,6 +36,7 @@ public class GameMain : MonoBehaviour
 		_fightTurnManager = GetComponent<FightTurnManager>();
 		_unitsPositionManagers = GetComponentsInChildren<UnitsPositionManager>();
 		_guiManager = GetComponent<GuiManager>();
+		_unitsManager = GetComponent<UnitsManager>();
 
 		_effectManager = GameObject.Find("EffectManager").GetComponent<EffectManager>();
 

@@ -166,16 +166,19 @@ public class Inventory : MonoBehaviour
 			}
 		}
 
+		// absorb item stats
+		_hud._unitStats._absorbItems();
 
-		// absorb items
+		// remove items
 		foreach (InventoryItemSlot slot in _slots)
 		{
-			InventoryItem item = slot._removeItem();
-			// ToDo item into unit's stats
+			slot._removeItem();	
 		}
 
 		// increase equipment minimal item level
 		_minimalEqipmentItemLevel += 1;
 		_equipmentLevelText.text = _minimalEqipmentItemLevel.ToString();
 	}
+
+	
 }

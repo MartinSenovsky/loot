@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Holoville.HOTween;
 using Holoville.HOTween.Plugins.Core;
 using SULogger.Primitives;
 using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class TurnAI : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class TurnAI : MonoBehaviour
 	private Unit _target;
 
 	private Vector3 _moveBackPosition;
+
+	public String _attackPriority;
+	public String _protectFrom;
 
 	void Start()
 	{
@@ -96,7 +101,14 @@ public class TurnAI : MonoBehaviour
 
 	private void _getTarget()
 	{
-		_target = _getRandomEnemy();
+		if (_attackPriority == "random")
+		{
+			_target = _getRandomEnemy();
+		}
+		else
+		{
+			ErrorManager._error("Unknown _attackPriority: " + _attackPriority);
+		}
 	}
 
 	public void _prepUnitLists()
@@ -104,7 +116,7 @@ public class TurnAI : MonoBehaviour
 		_enemies = GameMain._instance._enemies;
 		_friends = GameMain._instance._units;
 
-		// i'm players enemy
+		// i'm players enemy - switch
 		if (_enemies.Contains(_unit))
 		{
 			_enemies = GameMain._instance._units;

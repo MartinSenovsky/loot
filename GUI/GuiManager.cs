@@ -5,12 +5,9 @@ using System.Collections;
 public class GuiManager : MonoBehaviour
 {
 
-	private Unit _mouseDownUnit;
-
-	private bool _unitDeselectionEnabled;
-
 	public MenuManager _menuManager;
 	public EndFightPanel _endFightPanel;
+	public AiConfigurationPanel _aiConfigurationPanel;
 
 	void Start()
 	{
@@ -25,37 +22,7 @@ public class GuiManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			Unit unit = _getUnitUnderMouse();
-
-			_unitDeselectionEnabled = true;
-			Invoke("_disableUnitDeselecting", 0.2f);
-
-			if (unit)
-			{
-				_mouseDownUnit = unit;
-			}
-		}
-		else if (Input.GetMouseButtonUp(0) && _unitDeselectionEnabled)
-		{
-			Unit unit = _getUnitUnderMouse();
-			if (unit && unit == _mouseDownUnit)
-			{
-				_selectUnit(unit);
-			}
-			else
-			{
-				_selectUnit(null);
-			}
-			_mouseDownUnit = null;
-		}
-	}
-
-
-	public void _disableUnitDeselecting()
-	{
-		_unitDeselectionEnabled = false;
+		
 	}
 
 
@@ -141,7 +108,7 @@ public class GuiManager : MonoBehaviour
 	}
 
 
-	private void _addTestItem()
+	public void _addTestItem()
 	{
 		InventoryItem testItem = InventoryItem._createNew();
 		testItem._sprite = InventoryItemSprites._instance._getRandomSword();
@@ -158,28 +125,6 @@ public class GuiManager : MonoBehaviour
 	}
 
 
-	public void _selectUnit(Unit unit)
-	{
-		return;
-		if (unit == null)
-		{
-			CameraDragOrbit._instance._tweenTo(CameraDragOrbit._instance._defaultTargetPosition, CameraDragOrbit._instance.distance, 0.5f);
-		}
-		else
-		{
-			CameraDragOrbit._instance._tweenTo(unit.transform.position, CameraDragOrbit._instance.distanceMin + 1.0f, 0.5f);
-
-			Vector3 cameraFakePos = CameraDragOrbit._instance.transform.position;
-			cameraFakePos.y = unit._unitRoot.transform.position.y;
-
-			Vector3 cameraUnitPosition = unit._unitRoot.transform.position;
-			cameraUnitPosition = Vector3.MoveTowards(cameraUnitPosition, cameraFakePos, 2);
-
-			HOTween.To(CameraDragOrbit._instance.transform, 1.5f, new TweenParms().Prop("position", cameraUnitPosition));
-		}
-	}
-
-
 	public bool _isAnyUnitInventoryVisible()
 	{
 		foreach (Unit unit in GameMain._instance._units)
@@ -191,5 +136,12 @@ public class GuiManager : MonoBehaviour
 		}
 
 		return false;
+	}
+
+
+
+	public void _showAiConfiguration(Unit unit)
+	{
+		_aiConfigurationPanel._showAiConfiguration(unit);
 	}
 }

@@ -31,14 +31,12 @@ public class InventoryInputEventReceiver : MonoBehaviour
 
 	public void _onPointerDown(InventoryItemSlot itemSlot)
 	{
-		GameMain._instance._guiManager._disableUnitDeselecting();
 		_dragDropManager._onPointerDown(itemSlot);
 	}
 
 
 	public void _onPointerUp(InventoryItemSlot itemSlot)
 	{
-		GameMain._instance._guiManager._disableUnitDeselecting();
 		_dragDropManager._onPointerUp(itemSlot);
 	}
 }

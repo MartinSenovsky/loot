@@ -1,6 +1,7 @@
 ﻿using Holoville.HOTween;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class CameraDragOrbit : MonoBehaviour
 {
@@ -67,12 +68,24 @@ public class CameraDragOrbit : MonoBehaviour
 	float velocityX = 0.0f;
 	float velocityY = 0.0f;
 
+	private bool _dragging;
+
 	
 	void LateUpdate()
 	{
+		if (target && Input.GetMouseButtonDown(0) && EventSystemManager.currentSystem.IsPointerOverEventSystemObject() == false)
+		{
+			_dragging = true;
+		}
+
+		if (Input.GetMouseButtonUp(0) && _dragging)
+		{
+			_dragging = false;
+		}
+
 		if (target)
 		{
-			if (Input.GetMouseButton(0) && InventoryDragDropManager._instance._dragging == false)
+			if (_dragging && InventoryDragDropManager._instance._dragging == false)
 			{
 				velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
 				velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;
@@ -102,6 +115,15 @@ public class CameraDragOrbit : MonoBehaviour
 
 			velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * smoothTime);
 			velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * smoothTime);
+
+			if (velocityX < 0.0001f || velocityX > -0.0001f)
+			{
+				velocityX = 0;
+			}
+			if (velocityY < 0.0001f || velocityY > -0.0001f)
+			{
+				velocityY = 0;
+			}
 		}
 
 	}

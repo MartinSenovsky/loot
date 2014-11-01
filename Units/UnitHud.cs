@@ -2,6 +2,7 @@
 using SULogger.Primitives;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UnitHud : MonoBehaviour
@@ -107,6 +108,8 @@ public class UnitHud : MonoBehaviour
 
 	public void _toggleStats()
 	{
+		//if(EventSystemManager.currentSystem.firstSelectedObject != EventSystemManager.currentSystem.currentSelectedObject) return;
+
 		if (_isStatsVisible)
 		{
 			Tweens._hideUnitStats(_unitStats._statPanel.transform);
@@ -118,5 +121,13 @@ public class UnitHud : MonoBehaviour
 		}
 
 		_isStatsVisible = !_isStatsVisible;
+	}
+
+
+	public void _showAiConfiguration()
+	{
+		//if (EventSystemManager.currentSystem.firstSelectedObject != EventSystemManager.currentSystem.currentSelectedObject) return;
+
+		GameMain._instance._guiManager._showAiConfiguration(_unit);
 	}
 }

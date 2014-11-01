@@ -120,7 +120,7 @@ public class Unit : MonoBehaviour
 
 	private void _onRotAnimCompleted()
 	{
-		
+
 	}
 
 
@@ -185,5 +185,27 @@ public class Unit : MonoBehaviour
 	{
 		Destroy(_model.gameObject);
 		Destroy(gameObject);
+	}
+
+
+	public void _heal(float amount, bool isAbsolute = true)
+	{
+		// convert to absolute value
+		if (isAbsolute == false)
+		{
+			amount = amount * _unitStats.HpMax;
+		}
+
+		// add hp
+		_unitStats.Hp += (int)amount;
+
+		// clamp to max
+		if (_unitStats.Hp > _unitStats.HpMax)
+		{
+			_unitStats.Hp = _unitStats.HpMax;
+		}
+
+		// play anim heal
+		GameMain._instance._effectManager._makeEffect(EffectManager._HERO_SPAWN, _model.transform.position, new Quaternion());
 	}
 }
