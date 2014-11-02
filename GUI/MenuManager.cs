@@ -27,14 +27,14 @@ public class MenuManager : MonoBehaviour
 	public void _showGlobalInventory()
 	{
 		RectTransform rectTransform = _globalInventory.transform.parent.GetComponent<RectTransform>();
-		HOTween.To(rectTransform, 0.9f, new TweenParms().Prop("localPosition", new Vector3(0, 0, 0)));
+		HOTween.To(rectTransform, 0.9f, new TweenParms().Prop("anchoredPosition", new Vector2(0, -280)));
 	}
 
 
 	public void _hideGlobalInventory()
 	{
 		RectTransform rectTransform = _globalInventory.transform.parent.GetComponent<RectTransform>();
-		HOTween.To(rectTransform, 0.9f, new TweenParms().Prop("localPosition", new Vector3(0, -198.52f, 0.14624f)));
+		HOTween.To(rectTransform, 0.9f, new TweenParms().Prop("anchoredPosition", new Vector2(0, -500)));
 	}
 
 	public void _onUnitInventoryToggled()

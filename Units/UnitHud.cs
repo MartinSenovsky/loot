@@ -1,4 +1,5 @@
 ﻿using Assets.M.Scripts.Utils;
+using Holoville.HOTween;
 using SULogger.Primitives;
 using UnityEngine;
 using System.Collections;
@@ -35,6 +36,9 @@ public class UnitHud : MonoBehaviour
 	[HideInInspector] 
 	public Inventory _inventory;
 
+	[HideInInspector]
+	public float _nothing;
+
 	void Start()
 	{
 		_unit = GetComponent<Unit>();
@@ -50,7 +54,16 @@ public class UnitHud : MonoBehaviour
 		LevelText.text = _unitStats.Level.ToString();
 
 		Tweens._hideInstant(_inventoryPanelGameObject.transform);
+
+		HOTween.To(this, 0.1f, new TweenParms().Prop("_nothing", 0).OnComplete(_updateHeightOfHud));
 	}
+
+
+	void _updateHeightOfHud()
+	{
+		transform.localPosition = new Vector3(0, _unit._height + 0.5f, 0);
+	}
+
 
 	void Update()
 	{

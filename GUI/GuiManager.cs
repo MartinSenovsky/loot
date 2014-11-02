@@ -11,8 +11,8 @@ public class GuiManager : MonoBehaviour
 
 	void Start()
 	{
-		_menuManager = GameObject.Find("MenuOverlay").GetComponent<MenuManager>();
-		_endFightPanel = GameObject.Find("EndFightPanel").GetComponent<EndFightPanel>();
+		_menuManager = GameObject.Find("OverlayCanvas").GetComponent<MenuManager>();
+		//_endFightPanel = GameObject.Find("EndFightPanel").GetComponent<EndFightPanel>();
 
 		Invoke("_hideMenu", 0.1f);
 
@@ -28,9 +28,12 @@ public class GuiManager : MonoBehaviour
 
 	public void _showFightOverMessage(string text)
 	{
+		/*
 		_endFightPanel._labelText.text = text;
 		_endFightPanel._labelText.gameObject.SetActive(true);
 		_endFightPanel._labelAnimator.Play("VictoryText");
+		 * 
+		 * */
 	}
 
 

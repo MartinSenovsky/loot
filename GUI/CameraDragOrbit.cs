@@ -18,7 +18,10 @@ public class CameraDragOrbit : MonoBehaviour
 		rotationYAxis = angles.y;
 		rotationXAxis = angles.x;
 
-		_targetTransform = GameObject.Find("GameCameraTarget").transform;
+		if (_targetTransform == null)
+		{
+			_targetTransform = GameObject.Find("GameCameraTarget").transform;
+		}
 		_defaultTargetPosition = _targetTransform.position;
 	}
 
@@ -85,7 +88,7 @@ public class CameraDragOrbit : MonoBehaviour
 
 		if (target)
 		{
-			if (_dragging && InventoryDragDropManager._instance._dragging == false)
+			if (_dragging && InventoryDragDropManager._instance == null || _dragging && InventoryDragDropManager._instance._dragging == false)
 			{
 				velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
 				velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;

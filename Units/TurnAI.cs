@@ -25,6 +25,9 @@ public class TurnAI : MonoBehaviour
 	void Start()
 	{
 		_unit = GetComponent<Unit>();
+
+		_attackPriority = "random";
+		_protectFrom = "none";
 	}
 
 	void Update()
@@ -107,7 +110,8 @@ public class TurnAI : MonoBehaviour
 		}
 		else
 		{
-			ErrorManager._error("Unknown _attackPriority: " + _attackPriority);
+//			ErrorManager._error("Unknown _attackPriority: " + _attackPriority);
+			Debug.LogError("Unknown _attackPriority: \"" + _attackPriority + "\"");
 		}
 	}
 

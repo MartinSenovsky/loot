@@ -26,6 +26,10 @@ public class Unit : MonoBehaviour
 	public Signal _signalAttackAnimDamagePoint = new Signal();
 	public Signal _signalAttackAnimFinished = new Signal();
 
+	public float _height;
+
+	public Animator _animator;
+
 	void Start()
 	{
 		_unitRoot = transform.parent.gameObject;
@@ -36,6 +40,10 @@ public class Unit : MonoBehaviour
 
 		_model = _getModelGameObject();
 		_model.transform.tag = _TAG;
+
+		_height = _model.GetComponentInChildren<Renderer>().bounds.extents.y * 2;
+
+		_animator = _model.GetComponent<Animator>();
 
 		transform.Translate(0, 2, 0);
 	}
