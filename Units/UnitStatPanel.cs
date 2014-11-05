@@ -69,7 +69,7 @@ public class UnitStatPanel : MonoBehaviour
 	{
 		_makeOrUpdateStatLine("HP", stats._totalHpMax(), false, ColorManager._instance._green);
 		_makeOrUpdateStatLine("HR", stats._totalHpRegen(), false, ColorManager._instance._green);
-		_makeOrUpdateStatLine("XP", stats.Exp, false, ColorManager._instance._purple);
+		_makeOrUpdateStatLine("XP", stats._Exp, false, ColorManager._instance._purple);
 
 		_makeOrUpdateStatLine("AD", stats._totalAttackDamage(), false, ColorManager._instance._red);
 		_makeOrUpdateStatLine("AS", stats._totalAttackSpeed(), false, ColorManager._instance._gold);

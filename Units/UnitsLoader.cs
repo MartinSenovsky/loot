@@ -22,7 +22,7 @@ public class UnitsLoader : MonoBehaviour
 
 	void Start()
 	{
-		
+
 	}
 
 	void Update()
@@ -162,7 +162,7 @@ public class UnitsLoader : MonoBehaviour
 		UnitHud unitHud = unitGameObject.GetComponent<UnitHud>();
 		unitHud._showNoHud();
 
-		// create test hero
+		// create test enemy
 		_makeTestEnemy(unitStats);
 
 
@@ -196,30 +196,32 @@ public class UnitsLoader : MonoBehaviour
 
 	private void _makeTestHero(UnitStats u)
 	{
-		u.Action = 0;
-		u.ActionMax = Random.Range(250, 400);
+		u._Action = 0;
+		u._ActionMax = Random.Range(250, 400);
 
-		u.HpMax = 500;
-		u.Hp = 500;
+		u._HpMax = 20;
+		u._Hp = 20;
 
-		u.Level = 1;
-		u.Name = "Mega Hero";
+		u._Level = 1;
+		u._Name = "Hero" + _units.Count;
 
-		u._attackDamage = 100;
+		u._attackDamage = 1;
 
 		u._prefabName = "Hero1";
 	}
 
 	private void _makeTestEnemy(UnitStats u)
 	{
-		u.Action = 0;
-		u.ActionMax = Random.Range(450, 500);
+		u._Action = 0;
+		u._ActionMax = Random.Range(450, 500);
 
-		u.HpMax = 500;
-		u.Hp = 500;
+		u._HpMax = 10;
+		u._Hp = 10;
 
-		u.Level = 10;
-		u.Name = "Enemy";
+		u._Level = 1;
+		u._Name = "Enemy" + _units.Count;
+
+		u._attackDamage = 1;
 
 		u._prefabName = "wolf";
 		//		u._prefabName = "Hero2";

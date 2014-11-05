@@ -92,7 +92,7 @@ public class GameMain : MonoBehaviour
 
 		foreach (Unit unit in _units)
 		{
-			unit._unitStats.Hp = unit._unitStats.HpMax;
+			unit._unitStats._Hp = unit._unitStats._HpMax;
 		}
 
 

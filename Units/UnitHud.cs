@@ -50,8 +50,8 @@ public class UnitHud : MonoBehaviour
 		_inventory._hud = this;
 
 
-		NameText.text = _unitStats.Name;
-		LevelText.text = _unitStats.Level.ToString();
+		NameText.text = _unitStats._Name;
+		LevelText.text = _unitStats._Level.ToString();
 
 		Tweens._hideInstant(_inventoryPanelGameObject.transform);
 
@@ -67,8 +67,8 @@ public class UnitHud : MonoBehaviour
 
 	void Update()
 	{
-		HpSlider.value = (float)_unitStats.Hp / (float)_unitStats.HpMax * 100f;
-		ActionSlider.value = (float)_unitStats.Action / (float)_unitStats.ActionMax * 100f;
+		HpSlider.value = (float)_unitStats._Hp / (float)_unitStats._HpMax * 100f;
+		ActionSlider.value = (float)_unitStats._Action / (float)_unitStats._ActionMax * 100f;
 	}
 
 

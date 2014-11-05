@@ -136,10 +136,12 @@ public class Unit : MonoBehaviour
 	{
 		int damage = DamageCounter._attackDamage(this, enemy);
 
-		enemy._unitStats.Hp -= damage;
+		Debug.Log(_unitStats._Name + " attacks " + enemy._unitStats._Name + " for " + damage + " dmg");
+
+		enemy._unitStats._Hp -= damage;
 		enemy._onAttackHitMe(this);
 
-		if (enemy._unitStats.Hp <= 0)
+		if (enemy._unitStats._Hp <= 0)
 		{
 			_onAttackKilledEnem(enemy);
 		}
@@ -160,9 +162,9 @@ public class Unit : MonoBehaviour
 
 
 		// check if dead
-		if (_unitStats.Hp <= 0)
+		if (_unitStats._Hp <= 0)
 		{
-			_unitStats.Hp = 0;
+			_unitStats._Hp = 0;
 			_playDieAnim();
 		}
 	}
@@ -201,16 +203,16 @@ public class Unit : MonoBehaviour
 		// convert to absolute value
 		if (isAbsolute == false)
 		{
-			amount = amount * _unitStats.HpMax;
+			amount = amount * _unitStats._HpMax;
 		}
 
 		// add hp
-		_unitStats.Hp += (int)amount;
+		_unitStats._Hp += (int)amount;
 
 		// clamp to max
-		if (_unitStats.Hp > _unitStats.HpMax)
+		if (_unitStats._Hp > _unitStats._HpMax)
 		{
-			_unitStats.Hp = _unitStats.HpMax;
+			_unitStats._Hp = _unitStats._HpMax;
 		}
 
 		// play anim heal

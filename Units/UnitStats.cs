@@ -7,18 +7,18 @@ public class UnitStats : MonoBehaviour
 {
 	public UnitStatPanel _statPanel;
 
-	public string Name;
-	public int Level;
-	public int Exp;
+	public string _Name;
+	public int _Level;
+	public int _Exp;
 
-	public int Hp;
-	public int HpMax;
+	public int _Hp;
+	public int _HpMax;
 
-	public int Mp;
-	public int MpMax;
+	public int _Mp;
+	public int _MpMax;
 
-	public float Action;
-	public float ActionMax;
+	public float _Action;
+	public float _ActionMax;
 
 	public bool _doActionNow;
 
@@ -68,19 +68,19 @@ public class UnitStats : MonoBehaviour
 
 	public void _updateActionTime(float ms)
 	{
-		if (Hp <= 0)
+		if (_Hp <= 0)
 		{
 			return;
 		}
 
 		// if frozen, stunned etc return
 
-		Action += ms;
+		_Action += ms;
 
-		if (Action >= ActionMax)
+		if (_Action >= _ActionMax)
 		{
 			_doActionNow = true;
-			Action = 0;
+			_Action = 0;
 		}
 	}
 
@@ -126,7 +126,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _attackDamage;
 		if(items)
-		v += _addValueFromItems(InventoryItemStat._attackDamage, v);
+		v = _addValueFromItems(InventoryItemStat._attackDamage, v);
 
 		// todo buffs
 
@@ -137,7 +137,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _armor;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._armor, v);
+		v = _addValueFromItems(InventoryItemStat._armor, v);
 		// todo buffs
 
 		return (int)v;
@@ -147,7 +147,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _armorPenetration;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._armorPenetration, v);
+		v = _addValueFromItems(InventoryItemStat._armorPenetration, v);
 		// todo buffs
 
 		return v;
@@ -157,7 +157,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _attackSpeed;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._attackSpeed, v);
+		v = _addValueFromItems(InventoryItemStat._attackSpeed, v);
 		// todo buffs
 
 		return (int)v;
@@ -167,7 +167,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _abilityDamage;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._abilityDamage, v);
+		v = _addValueFromItems(InventoryItemStat._abilityDamage, v);
 		// todo buffs
 
 		return (int)v;
@@ -177,7 +177,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _hpRegen;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._hpRegen, v);
+		v = _addValueFromItems(InventoryItemStat._hpRegen, v);
 		// todo buffs
 
 		return (int)v;
@@ -187,7 +187,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _magicResistance;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._magicResistance, v);
+		v = _addValueFromItems(InventoryItemStat._magicResistance, v);
 		// todo buffs
 
 		return (int)v;
@@ -197,7 +197,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _magicPenetration;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._magicPenetration, v);
+		v = _addValueFromItems(InventoryItemStat._magicPenetration, v);
 		// todo buffs
 
 		return v;
@@ -207,7 +207,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _criticalDamage;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._criticalDamage, v);
+		v = _addValueFromItems(InventoryItemStat._criticalDamage, v);
 		// todo buffs
 
 		return v;
@@ -217,7 +217,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _criticalChance;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._criticalChance, v);
+		v = _addValueFromItems(InventoryItemStat._criticalChance, v);
 		// todo buffs
 
 		return v;
@@ -227,7 +227,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _coolDownReduction;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._coolDownReduction, v);
+		v = _addValueFromItems(InventoryItemStat._coolDownReduction, v);
 		// todo buffs
 
 		return v;
@@ -237,7 +237,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _spellVamp;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._spellVamp, v);
+		v = _addValueFromItems(InventoryItemStat._spellVamp, v);
 		// todo buffs
 
 		return v;
@@ -247,7 +247,7 @@ public class UnitStats : MonoBehaviour
 	{
 		float v = _lifeSteal;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._lifeSteal, v);
+		v = _addValueFromItems(InventoryItemStat._lifeSteal, v);
 		// todo buffs
 
 		return v;
@@ -255,9 +255,9 @@ public class UnitStats : MonoBehaviour
 
 	public int _totalHpMax(bool items = true, bool buffs = true)
 	{
-		float v = HpMax;
+		float v = _HpMax;
 		if (items)
-		v += _addValueFromItems(InventoryItemStat._hp, v);
+		v = _addValueFromItems(InventoryItemStat._hp, v);
 		// todo buffs
 
 		return (int)v;

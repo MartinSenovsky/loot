@@ -8,7 +8,8 @@ public class DamageCounter
 
 		int armorLeft = (int)(targetArmor * (1-armorPenetration));
 
-		int damage = target._unitStats._totalAttackDamage();
+		int damage = attacker._unitStats._totalAttackDamage();
+
 		damage -= armorLeft;
 
 		return damage;

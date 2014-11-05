@@ -11,13 +11,13 @@ public class UnitStatsSaveLoad
 	{
 		string uid = stats._uid;
 
-		_saveString("Name", uid, stats.Name);
-		_saveFloat("ActionMax", uid, stats.ActionMax);
-		_saveInt("HpMax", uid, stats.HpMax);
-		_saveInt("Hp", uid, stats.Hp);
+		_saveString("_Name", uid, stats._Name);
+		_saveFloat("_ActionMax", uid, stats._ActionMax);
+		_saveInt("_HpMax", uid, stats._HpMax);
+		_saveInt("_Hp", uid, stats._Hp);
 		_saveString("PrefabName", uid, stats._prefabName);
-		_saveInt("Level", uid, stats.Level);
-		_saveInt("Xp", uid, stats.Exp);
+		_saveInt("_Level", uid, stats._Level);
+		_saveInt("Xp", uid, stats._Exp);
 
 
 		_saveInt(InventoryItemStat._attackDamage, uid, stats._attackDamage);
@@ -44,13 +44,13 @@ public class UnitStatsSaveLoad
 	{
 		string uid = stats._uid;
 
-		stats.Name = _loadString("Name", uid);
-		stats.ActionMax = _loadFloat("ActionMax", uid);
-		stats.HpMax = _loadInt("HpMax", uid);
-		stats.Hp = _loadInt("Hp", uid);
+		stats._Name = _loadString("_Name", uid);
+		stats._ActionMax = _loadFloat("_ActionMax", uid);
+		stats._HpMax = _loadInt("_HpMax", uid);
+		stats._Hp = _loadInt("_Hp", uid);
 		stats._prefabName = _loadString("PrefabName", uid);
-		stats.Level = _loadInt("Level", uid);
-		stats.Exp = _loadInt("Xp", uid);
+		stats._Level = _loadInt("_Level", uid);
+		stats._Exp = _loadInt("Xp", uid);
 
 
 		stats._attackDamage = _loadInt(InventoryItemStat._attackDamage, uid);

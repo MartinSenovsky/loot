@@ -76,7 +76,7 @@ public class FightTurnManager : MonoBehaviour
 
 		foreach (Unit u in GameMain._instance._units)
 		{
-			if (u._unitStats.Hp > 0)
+			if (u._unitStats._Hp > 0)
 			{
 				playerLost = false;
 				break;
@@ -85,7 +85,7 @@ public class FightTurnManager : MonoBehaviour
 
 		foreach (Unit u in GameMain._instance._enemies)
 		{
-			if (u._unitStats.Hp > 0)
+			if (u._unitStats._Hp > 0)
 			{
 				playerWin = false;
 				break;

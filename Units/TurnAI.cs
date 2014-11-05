@@ -46,7 +46,7 @@ public class TurnAI : MonoBehaviour
 		else
 		{
 			// skip turn to wait for enemies to become targetable
-			_unit._unitStats.Action = _unit._unitStats.ActionMax;
+			_unit._unitStats._Action = _unit._unitStats._ActionMax;
 			_signalTurnCompleted.Dispatch();
 		}
 	}
@@ -174,7 +174,7 @@ public class TurnAI : MonoBehaviour
 
 	private bool _canAttack(Unit target)
 	{
-		if (target._unitStats.Hp <= 0)
+		if (target._unitStats._Hp <= 0)
 		{
 			return false;
 		}
