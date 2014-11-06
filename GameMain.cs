@@ -5,6 +5,7 @@ using Assets.M.Scripts.Utils;
 using Holoville.HOTween;
 using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class GameMain : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class GameMain : MonoBehaviour
 		_playerUnitsPositionManager = _unitsPositionManagers[0];
 		_enemyUnitsPositionManager = _unitsPositionManagers[1];
 
-		Invoke("_lateStart", 0.1f);
+		DelayedCall.To(this, _lateStart, 0.1f);
 	}
 
 
@@ -71,7 +72,25 @@ public class GameMain : MonoBehaviour
 	{
 		_endMenu();
 		_unitsLoader._signalEnemiesSpawned.AddOnce(_onEnemiesSpawned);
+		_unitsLoader._signalEnemySpawned.Add(_onEnemySpawned);
 		_unitsLoader._spawnEnemies(3);
+	}
+
+	private void _onEnemySpawned(Unit enemy)
+	{
+		// rotate enemy on random friend
+		Unit randomFriend = _units[Random.Range(0, _units.Count)];
+
+		if (randomFriend)
+		{
+			enemy._lookAt(randomFriend);
+		}
+
+		// rotate friends on him
+		foreach (Unit unit in _units)
+		{
+			unit._lookAt(enemy, Random.Range(0.1f, 0.4f));
+		}
 	}
 
 
@@ -112,16 +131,16 @@ public class GameMain : MonoBehaviour
 
 
 		// start menu
-		Invoke("_startMenu", 0.1f);
+		DelayedCall.To(this, _startMenu, 0.1f);
 	}
 
 
 	private void _onEnemiesSpawned(List<Unit> list)
 	{
 		_enemies = new List<Unit>(list);
-
+		
 		// start game continue
-		Invoke("_startGameAfterEnemiesSpawned", 0.1f);
+		DelayedCall.To(this, _startGameAfterEnemiesSpawned, 0.1f);
 	}
 
 

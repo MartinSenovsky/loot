@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.M.Scripts.Utils;
+using UnityEngine;
 using System.Collections;
 
 public class InventoryInputEventReceiver : MonoBehaviour
@@ -8,7 +9,7 @@ public class InventoryInputEventReceiver : MonoBehaviour
 
 	void Start()
 	{
-		Invoke("_lateStart", 0.1f);
+		DelayedCall.To(this, _lateStart, 0.1f);
 	}
 
 

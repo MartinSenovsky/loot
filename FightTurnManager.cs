@@ -12,7 +12,7 @@ public class FightTurnManager : MonoBehaviour
 	public bool _moveTimeForward;
 
 	private List<Unit> _units;
-	private int i;
+	private int _turnCounter;
 
 	void Start()
 	{
@@ -31,20 +31,24 @@ public class FightTurnManager : MonoBehaviour
 
 	private void _update(float time)
 	{
-		Unit _unitOnTurn = _units[i];
+		Unit _unitOnTurn = _units[_turnCounter];
 
-		// update gui
-		_unitOnTurn._unitStats._updateActionTime(time);
+		// update action time
+
+		if (_unitOnTurn._unitStatus._canAttack())
+		{
+			_unitOnTurn._unitStats._updateActionTime(time);
+		}
 
 		// do turn action
 		if (_unitOnTurn._unitStats._doActionNow)
 		{
 
 			// move to next unit
-			i++;
-			if (i >= _units.Count)
+			_turnCounter++;
+			if (_turnCounter >= _units.Count)
 			{
-				i = 0;
+				_turnCounter = 0;
 			}
 
 			// execute turn action
@@ -56,10 +60,10 @@ public class FightTurnManager : MonoBehaviour
 		else
 		{
 			// move to next unit
-			i++;
-			if (i >= _units.Count)
+			_turnCounter++;
+			if (_turnCounter >= _units.Count)
 			{
-				i = 0;
+				_turnCounter = 0;
 				return;
 			}
 
@@ -152,7 +156,7 @@ public class FightTurnManager : MonoBehaviour
 		}
 
 
-		i = 0;
+		_turnCounter = 0;
 		_moveTimeForward = true;
 	}
 

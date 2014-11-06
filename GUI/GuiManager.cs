@@ -1,4 +1,5 @@
-﻿using Holoville.HOTween;
+﻿using Assets.M.Scripts.Utils;
+using Holoville.HOTween;
 using UnityEngine;
 using System.Collections;
 
@@ -14,7 +15,7 @@ public class GuiManager : MonoBehaviour
 		_menuManager = GameObject.Find("OverlayCanvas").GetComponent<MenuManager>();
 		//_endFightPanel = GameObject.Find("EndFightPanel").GetComponent<EndFightPanel>();
 
-		Invoke("_hideMenu", 0.1f);
+		DelayedCall.To(this, _hideMenu, 0.1f);
 
 		Input.simulateMouseWithTouches = true;
 	}

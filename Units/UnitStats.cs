@@ -5,8 +5,11 @@ using System.Collections;
 
 public class UnitStats : MonoBehaviour
 {
+	// gui
 	public UnitStatPanel _statPanel;
 
+
+	// general
 	public string _Name;
 	public int _Level;
 	public int _Exp;
@@ -22,16 +25,7 @@ public class UnitStats : MonoBehaviour
 
 	public bool _doActionNow;
 
-	[HideInInspector]
-	public string _prefabName;
-	[HideInInspector]
-	public string _uid;
-	[HideInInspector]
-	public UnitHud _hud;
-
-
-	// Game visible stats in stats panel - base values
-
+	
 	// offensive
 	public int _attackDamage = 0;
 	public int _attackSpeed = 0;
@@ -55,6 +49,18 @@ public class UnitStats : MonoBehaviour
 	public float _spellVamp = 0;
 
 
+	[HideInInspector]
+	public string _prefabName;
+
+	[HideInInspector]
+	public string _uid;
+	
+	[HideInInspector]
+	public UnitHud _hud;
+
+
+
+		
 	void Start()
 	{
 

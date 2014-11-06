@@ -7,10 +7,12 @@ public class EffectManager : MonoBehaviour
 	public static int _HERO_SPAWN = 1;
 	public static int _BLOOD_HIT = 2;
 	public static int _SPELL_HEAL_RECEIVED = 3;
+	public static int _PROTECT = 4;
 
 
 	public GameObject _prefabHeroSpawn;
 	public GameObject _prefabSpellHealReceived;
+	public GameObject _prefabProtect;
 	public List<GameObject> _prefabsBloodHit;
 
 	private GameObject _effectsParent;
@@ -43,6 +45,11 @@ public class EffectManager : MonoBehaviour
 		else if (type == _SPELL_HEAL_RECEIVED)
 		{
 			effectGameObject = Instantiate(_prefabSpellHealReceived, pos, rotation) as GameObject;
+			effectGameObject.transform.parent = _effectsParent.transform;
+		}
+		else if (type == _PROTECT)
+		{
+			effectGameObject = Instantiate(_prefabProtect, pos, rotation) as GameObject;
 			effectGameObject.transform.parent = _effectsParent.transform;
 		}
 		else

@@ -39,9 +39,32 @@ public class TurnAI : MonoBehaviour
 	{
 		_getTarget();
 
+
 		if (_target)
 		{
+			// check if any enemy blocks my attack type
+			Unit blocker = null;
+
+			foreach (Unit enemy in _enemies)
+			{
+				if (enemy._turnAI._isProtecting(_target, _unit))
+				{
+					blocker = enemy;
+					break;
+				}
+			}
+
+			if (blocker)
+			{
+				// show block anim
+				blocker._playPrepareBlockAnim(_unit);
+
+				// switch target to blocker
+				_target = blocker;
+			}
+
 			_moveToAttackRange();
+
 		}
 		else
 		{
@@ -49,6 +72,16 @@ public class TurnAI : MonoBehaviour
 			_unit._unitStats._Action = _unit._unitStats._ActionMax;
 			_signalTurnCompleted.Dispatch();
 		}
+	}
+
+	private bool _isProtecting(Unit target, Unit from)
+	{
+		if (_unit._unitStatus._canProtect())
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	private void _moveToAttackRange()
@@ -62,10 +95,12 @@ public class TurnAI : MonoBehaviour
 		Vector3 attackPosition = _target._unitRoot.transform.position;
 		attackPosition = Vector3.MoveTowards(attackPosition, _moveBackPosition, attackRange);
 
-		_unit._unitRoot.transform.LookAt(_target._unitRoot.transform);
+		// look at each other
+		_unit._lookAt(_target, 0.1f);
+		_target._lookAt(_unit, 0.1f);
 
 		// tween to that position
-		HOTween.To(_unit._unitRoot.transform, 0.1f, new TweenParms().Prop("position", attackPosition).OnComplete(_onAttackRangeReached));
+		HOTween.To(_unit._unitRoot.transform, 0.1f, new TweenParms().Prop("position", attackPosition).OnComplete(_onAttackRangeReached).Delay(0.1f));
 	}
 
 	private void _onAttackRangeReached()
@@ -110,7 +145,7 @@ public class TurnAI : MonoBehaviour
 		}
 		else
 		{
-//			ErrorManager._error("Unknown _attackPriority: " + _attackPriority);
+			//			ErrorManager._error("Unknown _attackPriority: " + _attackPriority);
 			Debug.LogError("Unknown _attackPriority: \"" + _attackPriority + "\"");
 		}
 	}
@@ -141,9 +176,9 @@ public class TurnAI : MonoBehaviour
 	}
 
 
-	public Unit _getRandomEnemy(int tries = 30)
+	public Unit _getRandomEnemy(int triesLeft = 30)
 	{
-		if (tries == 0)
+		if (triesLeft == 0)
 		{
 			// there's really no 1 to target
 			return null;
@@ -168,17 +203,14 @@ public class TurnAI : MonoBehaviour
 			return target;
 		}
 
-		return _getRandomEnemy(tries - 1);
+		return _getRandomEnemy(triesLeft - 1);
 	}
 
 
 	private bool _canAttack(Unit target)
 	{
-		if (target._unitStats._Hp <= 0)
-		{
-			return false;
-		}
-
+		if (target._unitStatus._canBeAttacked() == false) return false;
+		if (_unit._unitStatus._canAttack() == false) return false;
 
 		return true;
 	}

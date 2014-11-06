@@ -17,6 +17,7 @@ public class UnitsLoader : MonoBehaviour
 
 	[HideInInspector]
 	public Signal<List<Unit>> _signalEnemiesSpawned = new Signal<List<Unit>>();
+	public Signal<Unit> _signalEnemySpawned = new Signal<Unit>();
 
 	private float _spawnTimeScale = 0.5f;
 
@@ -41,10 +42,9 @@ public class UnitsLoader : MonoBehaviour
 			int numUnits = 2;
 			for (int i = 0; i < numUnits; i++)
 			{
-				Invoke("_spawnNewPlayer", i / Time.timeScale * _spawnTimeScale);
+				DelayedCall.To(this, _spawnNewPlayer, i / Time.timeScale * _spawnTimeScale);
 			}
-
-			Invoke("_onSpawnedAll", numUnits / Time.timeScale * _spawnTimeScale);
+			DelayedCall.To(this, _onSpawnedAll, numUnits / Time.timeScale * _spawnTimeScale);
 		}
 		else
 		{
@@ -57,10 +57,9 @@ public class UnitsLoader : MonoBehaviour
 
 			for (int i = 0; i < numUnits; i++)
 			{
-				Invoke("_spawnPlayer", i / Time.timeScale * _spawnTimeScale);
+				DelayedCall.To(this, _spawnNewPlayer, i / Time.timeScale * _spawnTimeScale);
 			}
-
-			Invoke("_onSpawnedAll", numUnits / Time.timeScale * _spawnTimeScale);
+			DelayedCall.To(this, _onSpawnedAll, numUnits / Time.timeScale * _spawnTimeScale);
 		}
 	}
 
@@ -175,6 +174,9 @@ public class UnitsLoader : MonoBehaviour
 		Vector3 pos = unitModelGameObject.transform.position;
 		GameMain._instance._effectManager._makeEffect(EffectManager._HERO_SPAWN, pos, new Quaternion());
 
+		_signalEnemySpawned.Dispatch(unit);
+
+
 		// Add unit to units list
 		_units.Add(unit);
 	}
@@ -232,9 +234,8 @@ public class UnitsLoader : MonoBehaviour
 	{
 		for (int i = 0; i < count; i++)
 		{
-			Invoke("_spawnEnemy", i / Time.timeScale * _spawnTimeScale);
+			DelayedCall.To(this, _spawnEnemy, i / Time.timeScale * _spawnTimeScale);
 		}
-
-		Invoke("_onSpawnedAllEnemies", count / Time.timeScale * _spawnTimeScale);
+		DelayedCall.To(this, _onSpawnedAllEnemies, count / Time.timeScale * _spawnTimeScale);
 	}
 }

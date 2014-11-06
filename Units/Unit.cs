@@ -1,4 +1,5 @@
-﻿using Holoville.HOTween;
+﻿using Assets.M.Scripts.Utils;
+using Holoville.HOTween;
 using SULogger.Primitives;
 using UnityEngine;
 using System.Collections;
@@ -15,6 +16,9 @@ public class Unit : MonoBehaviour
 
 	[HideInInspector]
 	public TurnAI _turnAI;
+
+	[HideInInspector]
+	public UnitStatus _unitStatus;
 
 	[HideInInspector]
 	public GameObject _model;
@@ -37,6 +41,7 @@ public class Unit : MonoBehaviour
 		_unitHud = GetComponent<UnitHud>();
 		_unitStats = GetComponent<UnitStats>();
 		_turnAI = GetComponent<TurnAI>();
+		_unitStatus = GetComponent<UnitStatus>();
 
 		_model = _getModelGameObject();
 		_model.transform.tag = _TAG;
@@ -92,9 +97,9 @@ public class Unit : MonoBehaviour
 
 	public void _playAttackAnim()
 	{
-		Invoke("_onAttackAnimDamagePoint", 0.1f);
-		Invoke("_onAttackAnimDamagePoint", 0.2f);
-		Invoke("_onAttackAnimFinished", 0.3f);
+		DelayedCall.To(this, _onAttackAnimDamagePoint, 0.1f);
+		DelayedCall.To(this, _onAttackAnimDamagePoint, 0.2f);
+		DelayedCall.To(this, _onAttackAnimFinished, 0.3f);
 	}
 
 
@@ -112,31 +117,22 @@ public class Unit : MonoBehaviour
 
 	public void _playDieAnim()
 	{
-		HOTween.To(_model.transform, 1.0f, new TweenParms().Prop("rotation", new Quaternion(-90, 0, 0, 0)));
+		HOTween.To(_model.transform, 1.0f, new TweenParms().Prop("rotation", new Quaternion(-45, 0, 0, 0)));
 	}
 
 
-	public void _playRotAnim()
+	public void _playPrepareBlockAnim(Unit blockedEnemy)
 	{
-		float time = 1.0f;
-
-		Vector3 pos = _model.transform.position;
-		pos.y += 1;
-		HOTween.To(_model.transform, time, new TweenParms().Prop("position", pos).OnComplete(_onRotAnimCompleted));
+		//GameMain._instance._effectManager._makeEffect(EffectManager._PROTECT, _model.transform.position, new Quaternion());
 	}
 
-
-	private void _onRotAnimCompleted()
-	{
-
-	}
 
 
 	public void _onAttackHitEnemy(Unit enemy)
 	{
 		int damage = DamageCounter._attackDamage(this, enemy);
 
-		Debug.Log(_unitStats._Name + " attacks " + enemy._unitStats._Name + " for " + damage + " dmg");
+		//		Debug.Log(_unitStats._Name + " attacks " + enemy._unitStats._Name + " for " + damage + " dmg");
 
 		enemy._unitStats._Hp -= damage;
 		enemy._onAttackHitMe(this);
@@ -186,8 +182,19 @@ public class Unit : MonoBehaviour
 		}
 
 		Vector3 targetRotationPosition = unit._unitRoot.transform.position;
-		targetRotationPosition.y = unit._unitRoot.transform.position.y;
-		unit._unitRoot.transform.LookAt(targetRotationPosition);
+		_lookAt(targetRotationPosition);
+	}
+
+
+	public void _lookAt(Unit unit, float timeSec)
+	{
+		if (unit == null)
+		{
+			return;
+		}
+
+		Quaternion lookat = Quaternion.LookRotation(unit.transform.parent.position - transform.parent.position);
+		HOTween.To(transform.parent, timeSec, new TweenParms().Prop("rotation", lookat));
 	}
 
 
@@ -218,4 +225,6 @@ public class Unit : MonoBehaviour
 		// play anim heal
 		GameMain._instance._effectManager._makeEffect(EffectManager._HERO_SPAWN, _model.transform.position, new Quaternion());
 	}
+
+	
 }
