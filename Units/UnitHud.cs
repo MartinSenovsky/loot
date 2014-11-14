@@ -67,7 +67,7 @@ public class UnitHud : MonoBehaviour
 
 	void Update()
 	{
-		HpSlider.value = (float)_unitStats._Hp / (float)_unitStats._HpMax * 100f;
+		HpSlider.value = (float)_unitStats._hp / (float)_unitStats._HpMax * 100f;
 		ActionSlider.value = (float)_unitStats._Action / (float)_unitStats._ActionMax * 100f;
 	}
 

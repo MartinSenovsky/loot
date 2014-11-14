@@ -68,7 +68,7 @@ public class GameMain : MonoBehaviour
 	}
 
 
-	public void _startGame()
+	public void _startBattle(int level)
 	{
 		_endMenu();
 		_unitsLoader._signalEnemiesSpawned.AddOnce(_onEnemiesSpawned);
@@ -111,7 +111,7 @@ public class GameMain : MonoBehaviour
 
 		foreach (Unit unit in _units)
 		{
-			unit._unitStats._Hp = unit._unitStats._HpMax;
+			unit._unitStats._hp = unit._unitStats._HpMax;
 		}
 
 

@@ -14,7 +14,7 @@ public class UnitStatsSaveLoad
 		_saveString("_Name", uid, stats._Name);
 		_saveFloat("_ActionMax", uid, stats._ActionMax);
 		_saveInt("_HpMax", uid, stats._HpMax);
-		_saveInt("_Hp", uid, stats._Hp);
+		_saveInt("_hp", uid, stats._hp);
 		_saveString("PrefabName", uid, stats._prefabName);
 		_saveInt("_Level", uid, stats._Level);
 		_saveInt("Xp", uid, stats._Exp);
@@ -22,7 +22,7 @@ public class UnitStatsSaveLoad
 
 		_saveInt(InventoryItemStat._attackDamage, uid, stats._attackDamage);
 		_saveFloat(InventoryItemStat._armorPenetration, uid, stats._armorPenetration);
-		_saveInt(InventoryItemStat._attackSpeed, uid, stats._attackSpeed);
+		_saveFloat(InventoryItemStat._attackSpeed, uid, stats._attackSpeed);
 		_saveFloat(InventoryItemStat._criticalChance, uid, stats._criticalChance);
 		_saveFloat(InventoryItemStat._criticalDamage, uid, stats._criticalDamage);
 		_saveFloat(InventoryItemStat._lifeSteal, uid, stats._lifeSteal);
@@ -47,7 +47,7 @@ public class UnitStatsSaveLoad
 		stats._Name = _loadString("_Name", uid);
 		stats._ActionMax = _loadFloat("_ActionMax", uid);
 		stats._HpMax = _loadInt("_HpMax", uid);
-		stats._Hp = _loadInt("_Hp", uid);
+		stats._hp = _loadInt("_hp", uid);
 		stats._prefabName = _loadString("PrefabName", uid);
 		stats._Level = _loadInt("_Level", uid);
 		stats._Exp = _loadInt("Xp", uid);
@@ -55,7 +55,7 @@ public class UnitStatsSaveLoad
 
 		stats._attackDamage = _loadInt(InventoryItemStat._attackDamage, uid);
 		stats._armorPenetration = _loadInt(InventoryItemStat._armorPenetration, uid);
-		stats._attackSpeed = _loadInt(InventoryItemStat._attackSpeed, uid);
+		stats._attackSpeed = _loadFloat(InventoryItemStat._attackSpeed, uid);
 		stats._criticalChance = _loadFloat(InventoryItemStat._criticalChance, uid);
 		stats._criticalDamage = _loadFloat(InventoryItemStat._criticalDamage, uid);
 		stats._lifeSteal = _loadFloat(InventoryItemStat._lifeSteal, uid);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.M.Scripts.Utils;
+using GoogleFu;
 using Holoville.HOTween;
 using SULogger.Primitives;
 using UnityEngine;
@@ -79,15 +80,23 @@ public class UnitsLoader : MonoBehaviour
 		UnitHud unitHud = unitGameObject.GetComponent<UnitHud>();
 		unitHud._showNoHud();
 
-		// create test hero
-		_makeTestHero(unitStats);
+		// create test stats
+		_makeTestStats(unitStats);
+
+		// randomly choose unit
+		UnitsDatabase unitsDatabase = UnitsDatabase.Instance;
+		UnitsDatabaseRow unitRow = unitsDatabase.Rows[Random.Range(0, unitsDatabase.Rows.Count)];
+
+		_fillStatsFromUnitDatabase(unitStats, unitRow);
 
 		// save unit stats
 		UnitStatsSaveLoad._saveUnitStats(unitStats);
 
+		// prefab
+		string prefabName = unitRow._prefabname1;
 
 		// Unit model holder
-		GameObject unitModelGameObject = Instantiate(Resources.Load(unitStats._prefabName, typeof(GameObject)), parentTransform.position, new Quaternion()) as GameObject;
+		GameObject unitModelGameObject = Instantiate(Resources.Load(prefabName, typeof(GameObject)), parentTransform.position, new Quaternion()) as GameObject;
 		unitModelGameObject.transform.parent = parentTransform;
 
 
@@ -100,6 +109,30 @@ public class UnitsLoader : MonoBehaviour
 
 		// Add unit to units list
 		_units.Add(unit);
+	}
+
+
+	private void _fillStatsFromUnitDatabase(UnitStats unitStats, UnitsDatabaseRow unitRow)
+	{
+		unitStats._Name = unitRow._name;
+		unitStats._ActionMax = unitRow._action;
+		unitStats._HpMax = unitRow._hp;
+		unitStats._hpRegen = unitRow._hpregen;
+		unitStats._MpMax = unitRow._mp;
+		unitStats._abilityDamage = unitRow._abilitydamage;
+		unitStats._armor = unitRow._armor;
+		unitStats._armorPenetration = unitRow._armorpenetration;
+		unitStats._magicPenetration = unitRow._magicpenetration;
+		unitStats._magicResistance = unitRow._magicresist;
+		unitStats._spellVamp = unitRow._spellvamp;
+		unitStats._attackDamage = unitRow._attackdamage;
+		unitStats._attackSpeed = unitRow._attackspeed;
+		unitStats._attackType = unitRow._attacktype;
+		unitStats._baseAttackMelee = unitRow._baseattackmelee;
+		unitStats._coolDownReduction = unitRow._cooldownreduction;
+		unitStats._criticalChance = unitRow._criticalchance;
+		unitStats._criticalDamage = unitRow._criticaldamage;
+		unitStats._lifeSteal = unitRow._lifesteal;
 	}
 
 
@@ -196,13 +229,13 @@ public class UnitsLoader : MonoBehaviour
 	}
 
 
-	private void _makeTestHero(UnitStats u)
+	private void _makeTestStats(UnitStats u)
 	{
 		u._Action = 0;
 		u._ActionMax = Random.Range(250, 400);
 
 		u._HpMax = 20;
-		u._Hp = 20;
+		u._hp = 20;
 
 		u._Level = 1;
 		u._Name = "Hero" + _units.Count;
@@ -218,7 +251,7 @@ public class UnitsLoader : MonoBehaviour
 		u._ActionMax = Random.Range(450, 500);
 
 		u._HpMax = 10;
-		u._Hp = 10;
+		u._hp = 10;
 
 		u._Level = 1;
 		u._Name = "Enemy" + _units.Count;

@@ -14,7 +14,6 @@ public class UnitStats : MonoBehaviour
 	public int _Level;
 	public int _Exp;
 
-	public int _Hp;
 	public int _HpMax;
 
 	public int _Mp;
@@ -25,10 +24,13 @@ public class UnitStats : MonoBehaviour
 
 	public bool _doActionNow;
 
+	public string _attackType;
+	public bool _baseAttackMelee;
+
 	
 	// offensive
 	public int _attackDamage = 0;
-	public int _attackSpeed = 0;
+	public float _attackSpeed = 0;
 	public float _armorPenetration = 0;
 	public float _criticalChance = 0;
 	public float _criticalDamage = 0;
@@ -58,12 +60,13 @@ public class UnitStats : MonoBehaviour
 	[HideInInspector]
 	public UnitHud _hud;
 
+	private Unit _unit;
+	
 
 
-		
 	void Start()
 	{
-
+		_unit = GetComponent<Unit>();
 	}
 
 	void Update()
@@ -74,7 +77,7 @@ public class UnitStats : MonoBehaviour
 
 	public void _updateActionTime(float ms)
 	{
-		if (_Hp <= 0)
+		if (_unit._unitStatus._canAttack())
 		{
 			return;
 		}

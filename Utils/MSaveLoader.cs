@@ -7,6 +7,11 @@ namespace Assets.M.Scripts.Utils
 		public static string NAME_FIRST_TIME_PLAYING = "first_time_playing";
 		public static string NUM_HEROES = "num_heroes";
 		private static string _HERO_UID = "hero_uid";
+
+		public static string LAST_SELECTED_LEVEL = "last_selected_level";
+		public static string LAST_UNLOCKED_LEVEL = "last_unlocked_level";
+
+
 		public static string HERO_UID(int id)
 		{
 			return _HERO_UID + "_" + id;

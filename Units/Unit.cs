@@ -46,7 +46,7 @@ public class Unit : MonoBehaviour
 		_model = _getModelGameObject();
 		_model.transform.tag = _TAG;
 
-		_height = _model.GetComponentInChildren<Renderer>().bounds.extents.y * 2;
+		_height = _model.GetComponentInChildren<SkinnedMeshRenderer>().bounds.extents.y * 2;
 
 		_animator = _model.GetComponent<Animator>();
 
@@ -72,7 +72,31 @@ public class Unit : MonoBehaviour
 
 	void Update()
 	{
+		//ray starts at player position and points down
+		Ray ray = new Ray(transform.position, Vector3.down);
 
+		//will store info of successful ray cast
+		RaycastHit hitInfo;
+
+		//terrain should have mesh collider and be on custom terrain 
+		//layer so we don't hit other objects with our raycast
+		LayerMask layer = 1 << LayerMask.NameToLayer("Ground");
+
+		//cast ray
+		if (Physics.Raycast(ray, out hitInfo, layer))
+		{
+			//get where on the z axis our raycast hit the ground
+			float z = hitInfo.point.z;
+
+			//copy current position into temporary container
+			Vector3 pos = transform.position;
+
+			//change z to where on the z axis our raycast hit the ground
+			pos.z = z;
+
+			//override our position with the new adjusted position.
+			_model.transform.position = pos;
+		}
 	}
 
 
@@ -134,10 +158,10 @@ public class Unit : MonoBehaviour
 
 		//		Debug.Log(_unitStats._Name + " attacks " + enemy._unitStats._Name + " for " + damage + " dmg");
 
-		enemy._unitStats._Hp -= damage;
+		enemy._unitStats._hp -= damage;
 		enemy._onAttackHitMe(this);
 
-		if (enemy._unitStats._Hp <= 0)
+		if (enemy._unitStats._hp <= 0)
 		{
 			_onAttackKilledEnem(enemy);
 		}
@@ -158,9 +182,9 @@ public class Unit : MonoBehaviour
 
 
 		// check if dead
-		if (_unitStats._Hp <= 0)
+		if (_unitStats._hp <= 0)
 		{
-			_unitStats._Hp = 0;
+			_unitStats._hp = 0;
 			_playDieAnim();
 		}
 	}
@@ -214,12 +238,12 @@ public class Unit : MonoBehaviour
 		}
 
 		// add hp
-		_unitStats._Hp += (int)amount;
+		_unitStats._hp += (int)amount;
 
 		// clamp to max
-		if (_unitStats._Hp > _unitStats._HpMax)
+		if (_unitStats._hp > _unitStats._HpMax)
 		{
-			_unitStats._Hp = _unitStats._HpMax;
+			_unitStats._hp = _unitStats._HpMax;
 		}
 
 		// play anim heal

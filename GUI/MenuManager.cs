@@ -5,11 +5,11 @@ using System.Collections;
 public class MenuManager : MonoBehaviour
 {
 	public Inventory _globalInventory;
-
+	public BattleStartButton _BattleStartButton;
 
 	void Start()
 	{
-
+		_BattleStartButton._signalStartBattlePressed.Add(_onBattleStartClicked);
 	}
 
 	void Update()
@@ -18,9 +18,9 @@ public class MenuManager : MonoBehaviour
 	}
 
 
-	public void _onBattleStartClicked()
+	public void _onBattleStartClicked(int level)
 	{
-		GameMain._instance._startGame();
+		GameMain._instance._startBattle(level);
 	}
 
 

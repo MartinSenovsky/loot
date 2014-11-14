@@ -59,7 +59,7 @@ public class UnitStatus : MonoBehaviour
 
 	public bool _isDead()
 	{
-		if (_unitStats._Hp <= 0)
+		if (_unitStats._hp <= 0)
 		{
 			return true;
 		}
